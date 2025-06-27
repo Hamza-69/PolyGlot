@@ -17,23 +17,23 @@
         <main>
             <form id="ai-form">
                 <h3 class="head1">Text to translate &#128071;</h3>
-                <textarea name="input" id="input" placeholder="How are you?"></textarea>
+                <textarea name="input" id="input" required placeholder="How are you?"></textarea>
                 <h3 class="head2">Select language &#128071;</h3>
                 <div class="lang">
                 <label for="fr">
-                    <input id ="fr" name="lang" type = "radio" value="French"> French
+                    <input id ="fr" name="lang" required type = "radio" value="French"> French
                     <img src="./assets/fr-flag.png">
                 </label>
                 <label for="sp">
-                    <input id ="sp" name="lang"  type = "radio" value="Spanish"> Spanish
+                    <input id ="sp" name="lang" required type = "radio" value="Spanish"> Spanish
                     <img src="./assets/sp-flag.png">
                 </label>
                 <label for="jpn">
-                    <input id ="jpn" name="lang"  type = "radio" value="Japenese"> Japenese
+                    <input id ="jpn" name="lang" required type = "radio" value="Japenese"> Japenese
                     <img src="./assets/jpn-flag.png">
                 </label>
                 </div>
-                <textarea style="display: none;" name="output" id="output" placeholder="How are you?"></textarea>
+                <textarea style="display: none; margin-bottom: -20px;" readonly name="output" id="output" placeholder="How are you?"></textarea>
             <button type="submit">Translate</button>
             </form>
         </main>
