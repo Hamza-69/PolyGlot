@@ -37,6 +37,14 @@
             <button type="submit">Translate</button>
             </form>
         </main>
+        <div id="apikey-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+          <div style="background:white; padding:2rem; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); min-width:300px; text-align:center;">
+            <h2>Enter your OpenAI API Key</h2>
+            <input id="apikey-input" type="password" placeholder="sk-..." style="width:90%; padding:0.5rem; margin:1rem 0; font-size:1rem;" />
+            <br/>
+            <button id="apikey-save" style="padding:0.5rem 1.5rem; font-size:1rem;">Save</button>
+          </div>
+        </div>
         <script src="index.js" type="module"></script>
     </body>
 </html>

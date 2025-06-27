@@ -1,8 +1,52 @@
 import OpenAI from "openai";
-const openai = new OpenAI({
-  dangerouslyAllowBrowser: true,
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-})
+
+let openai;
+
+function showApiKeyModal() {
+  const modal = document.getElementById("apikey-modal");
+  modal.style.display = "flex";
+}
+
+function hideApiKeyModal() {
+  const modal = document.getElementById("apikey-modal");
+  modal.style.display = "none";
+}
+
+function getApiKey() {
+  return localStorage.getItem("openai_api_key");
+}
+
+function setApiKey(key) {
+  localStorage.setItem("openai_api_key", key);
+}
+
+function initOpenAI() {
+  const key = getApiKey();
+  if (!key) {
+    showApiKeyModal();
+    return false;
+  }
+  openai = new OpenAI({
+    dangerouslyAllowBrowser: true,
+    apiKey: key,
+  });
+  return true;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!initOpenAI()) {
+    document.getElementById("apikey-save").onclick = () => {
+      const key = document.getElementById("apikey-input").value.trim();
+      if (key.startsWith("sk-")) {
+        setApiKey(key);
+        hideApiKeyModal();
+        initOpenAI();
+      } else {
+        alert("Please enter a valid OpenAI API key starting with sk-");
+      }
+    };
+  }
+});
 
 const btn = document.querySelector(`button[type="submit"]`)
 const form = document.querySelector(`form`)
@@ -18,6 +62,9 @@ form.addEventListener("submit", async (e) =>{
     btn.innerText = "Translate";
     return;
   }
+  if (!openai && !initOpenAI()) {
+    return;
+  }
   const formData = new FormData(form);
   const result = await translate(formData.get("input"), formData.get("lang"))
   document.querySelector(".lang").style.display = "none";
@@ -29,6 +76,9 @@ form.addEventListener("submit", async (e) =>{
 })
 
 const translate = async (text, lang) => {
+  if (!openai && !initOpenAI()) {
+    return "No API key provided.";
+  }
   const messages = [
     {
       role: "system",
